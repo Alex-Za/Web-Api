@@ -9,7 +9,12 @@ namespace Web_Api.Services
     public class Writer
     {
         FileStream fileStream;
-        public void Write(byte[] buffer, int id, string extension)
+        string extension;
+        public Writer(string extension)
+        {
+            this.extension = extension;
+        }
+        public void Write(byte[] buffer, int id)
         {
             if (fileStream == null)
             {

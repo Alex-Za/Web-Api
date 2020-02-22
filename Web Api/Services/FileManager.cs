@@ -13,25 +13,26 @@ namespace Web_Api.Services
             allFiles[id].Close();
         }
 
+        Writer writer;
+        int id = 0;
         public int GetID(string extension)
         {
-            this.extension = extension;
-            Random rnd = new Random();
-            return rnd.Next(100000);
+            writer = new Writer(extension);
+            id += 1;
+            return id;
         }
-        string extension;
         Dictionary<int, Writer> allFiles = new Dictionary<int, Writer>();
         public void Write(int id, byte[] buffer)
         {
 
             if (!allFiles.ContainsKey(id))
             {
-                allFiles.Add(id, new Writer());
-                allFiles[id].Write(buffer, id, extension);
+                allFiles.Add(id, writer);
+                allFiles[id].Write(buffer, id);
             }
             else
             {
-                allFiles[id].Write(buffer, id, extension);
+                allFiles[id].Write(buffer, id);
             }
 
         }
